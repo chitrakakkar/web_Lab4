@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Interval</title>
+
+    <style>
+        #canvas {
+            border: 1px black solid;
+        }
+    </style>
+
+</head>
+<body>
+
+<h2>setInterval method used to update canvas</h2>
+
+<!--The canvas element. Set height and width, and give it an id -->
+<canvas id="canvas" height="200" width="300"></canvas>
+<div>
+    <button id="drawCircle" onclick="makeCircle();">Draw/Move circles!</button>
+</div>
+
+<script>
+    function makeCircle()
+    {
+        var X = 50;
+        var Y = 100;
+        var canvas = document.getElementById("canvas");
+        var context = canvas.getContext("2d");
+        setInterval(drawCircle, 100);
+        function drawCircle() {
+            context.beginPath();
+            context.arc(X, Y, 40, 0, 2 * Math.PI);
+            context.strokeStyle = "#FF0000";
+            context.stroke();
+            Y+=3;
+            X += 2;
+        }
+    }
+</script>
+</body>
+</html>
