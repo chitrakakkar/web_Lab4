@@ -18,10 +18,12 @@
 <!--The canvas element. Set height and width, and give it an id -->
 <canvas id="canvas" height="200" width="300"></canvas>
 <div>
-    <button id="drawCircle" onclick="makeCircle();">Draw/Move circles!</button>
+    <button id="drawCircle">Draw/Move circles!</button>
 </div>
 
 <script>
+    //taken idea from :-http://stackoverflow.com/questions/13271433/making-a-circle-that-moves
+    document.getElementById("drawCircle").addEventListener("click", makeCircle);
     function makeCircle()
     {
         var X = 50;
@@ -30,10 +32,10 @@
         var context = canvas.getContext("2d");
         setInterval(drawCircle, 100);
         function drawCircle()
-        {       context.clearRect(0,0,300,300);
+        {       context.clearRect(0,0,canvas.width,canvas.height);
                 context.beginPath();
                 context.arc(X, Y, 40, 0, 2 * Math.PI);
-                context.strokeStyle = "#FF0000";
+                context.strokeStyle = "green";
                 context.stroke();
                 X += 4;
         }
