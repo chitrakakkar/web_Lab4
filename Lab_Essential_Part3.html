@@ -29,13 +29,13 @@
         var canvas = document.getElementById("canvas");
         var context = canvas.getContext("2d");
         setInterval(drawCircle, 100);
-        function drawCircle() {
-            context.beginPath();
-            context.arc(X, Y, 40, 0, 2 * Math.PI);
-            context.strokeStyle = "#FF0000";
-            context.stroke();
-            Y+=3;
-            X += 2;
+        function drawCircle()
+        {       context.clearRect(0,0,300,300);
+                context.beginPath();
+                context.arc(X, Y, 40, 0, 2 * Math.PI);
+                context.strokeStyle = "#FF0000";
+                context.stroke();
+                X += 4;
         }
     }
 </script>
