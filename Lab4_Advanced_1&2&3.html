@@ -29,7 +29,7 @@
             //Set three required options to display the map
             //Other options such as preventing scrolling or zooming, are available
                 center : new google.maps.LatLng(45, -93.26),   // Lat and long to center the map
-                zoom : 8,                                   // 0 = the whole world, 22 = max zoom in
+                zoom : 5,                                   // 0 = the whole world, 22 = max zoom in
                 mapTypeId : google.maps.MapTypeId.ROADMAP,
                 disableDefaultUI: true    // would disable the default labels
                 //or SATELLITE, HYBRID or TERRAIN
@@ -78,6 +78,7 @@
                 title : "Madison is here"
 
 
+
             };
             var MadisonMarker = new google.maps.Marker(MadisonMarkerOptions);
             var MPLS_infoWindow = new google.maps.InfoWindow ( {
@@ -93,14 +94,17 @@
             mplsMarker.addListener("click", function()
             {
                 MPLS_infoWindow.open(map, mplsMarker);
+                alert("Wrong Choice-This is Minneapolis !! Try again ")
             });
             MilwaukeeMarker.addListener("click", function ()
             {
                 Milwaukee_infoWindow.open(map,MilwaukeeMarker);
+                alert("Wrong Choice-This is Milwaukee !! Try Again ")
             });
             MadisonMarker.addListener("click", function ()
             {
-                Madison_infoWindow.open(map, MadisonMarker)
+                Madison_infoWindow.open(map, MadisonMarker);
+                alert("You got it Right !! This is Madison ")
 
             });
 
@@ -114,6 +118,6 @@
 <!--This div will contain a map. Note that the size of this div is set with CSS.-->
 <div id="map"></div>
 
-<P>The <a href="https://developers.google.com/maps/documentation/javascript/reference">Google Maps API reference was very helpful.</a></P>
+<P>Click on the markers to see if you can guess the right place</P>
 </body>
 </html>
