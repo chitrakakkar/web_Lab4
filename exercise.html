@@ -12,7 +12,7 @@
     </style>
 
     <script async defer
-            src="https://maps.googleapis.com/maps/api/js?key=****************************
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD3gxvsDMg0UwMj8XR8ujRqDWdkQItQKJM
 &callback=initMap">
     </script>
     <script>
@@ -48,10 +48,11 @@
         Central_cities.push(Denver, ColoradoSpring, FortCollins);
         // adding all three city list to the final list
         different_Cities_list.push(Middle_West_cities, South_west_cities, Central_cities);
+        var right_answers=["Madison", "Phoenix", "Denver"];
         alert("I am here" + JSON.stringify(different_Cities_list));
         function initMap()
         {
-            //alert("I am inti map");
+            alert("I am inti map");
             var mapDiv = new google.maps.Map(document.getElementById("map"),
                     {
                         //Set three required options to display the map
@@ -62,7 +63,7 @@
                         disableDefaultUI: true    // would disable the default labels
                         //or SATELLITE, HYBRID or TERRAIN
                     });
-            //alert("I am inti map2");
+            alert("I am inti map2");
             var emptyStyles =    //https://dzone.com/articles/google-maps-without-any
                     [
                         {
@@ -81,39 +82,33 @@
                         //Can add features, points of interest, routes, lines etc. to maps
                         //Adding a marker to the map
                         //Like the map, set the options for the marker
-                        var MarkerOptions =
+                        var Marker=
                         {
                             position: new google.maps.LatLng(different_Cities_list[x][y].latitude, different_Cities_list[x][y].longitude), //Where is the marker?
                             map: mapDiv,                       //What map?
                             draggable: false,               //No moving the marker!
                             name: different_Cities_list[x][y].name
+
                         };
                         //alert("I am name" + MarkerOptions.name);
                         // Create the marker, with the options above
                         // A new marker with the map option set in the markerOptions,
                         // is automatically added to the map it belongs to.
-                        var Marker = new google.maps.Marker(MarkerOptions);
-                        var infoWindow = new google.maps.InfoWindow
-                        ( {
-                            content :MarkerOptions.name
-                        });
-
-                        alert("I am content"+ infoWindow.content);
-                        alert(different_Cities_list[0][0].name);
-                        Marker.addListener("click", function ()
-                        {
-                            if(infoWindow.content == different_Cities_list[0][0].name)
-                            {
-                                alert("You found " + infoWindow.content)
-                            }
-                            else
-                            {
-                                alert("Wrong choice !! this is " + infoWindow.content)
-                            }
-
-                        });
+                        var Marker_x = new google.maps.Marker(Marker);
+                      get_marker_info(Marker_x, Marker.name)
                 }
             }
+        }
+        function get_marker_info(marker, answer)
+        {
+            var info_window = new google.maps.InfoWindow({
+                content: answer
+            });
+
+            marker.addListener('click', function()
+            {
+                info_window.open(marker.get('map'), marker);
+            });
         }
 
     </script>
