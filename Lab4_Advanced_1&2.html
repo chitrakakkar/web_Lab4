@@ -14,7 +14,6 @@
             width: 500px;
         }
     </style>
-
     <script async defer
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD3gxvsDMg0UwMj8XR8ujRqDWdkQItQKJM
 &callback=initMap">
@@ -93,17 +92,17 @@
             // And add it to our Minneapolis marker
             mplsMarker.addListener("click", function()
             {
-                MPLS_infoWindow.open(map, mplsMarker);
+                MPLS_infoWindow.open(mapDiv, mplsMarker);
                 alert("Wrong Choice-This is Minneapolis !! Try again ")
             });
             MilwaukeeMarker.addListener("click", function ()
             {
-                Milwaukee_infoWindow.open(map,MilwaukeeMarker);
+                Milwaukee_infoWindow.open(mapDiv,MilwaukeeMarker);
                 alert("Wrong Choice-This is Milwaukee !! Try Again ")
             });
             MadisonMarker.addListener("click", function ()
             {
-                Madison_infoWindow.open(map, MadisonMarker);
+                Madison_infoWindow.open(mapDiv, MadisonMarker);
                 alert("You got it Right !! This is Madison ")
 
             });
@@ -114,7 +113,7 @@
 </head>
 <body>
 
-<h1>Where is Minneapolis?</h1>
+<h1>Where is Madison?</h1>
 <!--This div will contain a map. Note that the size of this div is set with CSS.-->
 <div id="map"></div>
 
