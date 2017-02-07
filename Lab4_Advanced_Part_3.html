@@ -25,21 +25,18 @@
             this.latitude = Lat;
             this.longitude = Long;
         };
-
         //1st list of MidWest cities
         var Middle_West_cities = [];
         var Minneapolis= new  Cities("Minneapolis", 45, -93.26);
         var Milwaukee = new Cities("Milwaukee",43.03, -87.90);
         var Madison = new Cities("Madison", 43.07, -89.40);
         Middle_West_cities.push(Minneapolis, Milwaukee, Madison);
-
         // 2nd List  of South_west cities
         var South_west_cities =[];
         var Tucson = new Cities("Tucson", 32.22, -110.92);
         var Phoenix = new Cities("Phoenix", 33.44, -112.07);
         var Flagstaff = new Cities("Flagstaff",35.19, -111.65);
         South_west_cities.push(Tucson, Phoenix, Flagstaff);
-
         // 3rd List of central Cities
         var Central_cities = [];
         var Denver = new Cities("Denver", 39.73, -104.99);
@@ -81,7 +78,7 @@
                     //Adding a marker to the map
                     //Like the map, set the options for the marker
                     var mplsMarkerOptions = {
-                        position: new google.maps.LatLng(different_Cities_list[x][y].latitude, -93.26), //Where is the marker?
+                        position: new google.maps.LatLng(different_Cities_list[x][y].latitude, different_Cities_list[x][y].longitude), //Where is the marker?
                         map: mapDiv,                       //What map?
                         draggable: false,               //No moving the marker!
                         title: "Minneapolis is here"    //Tooltip/rollover text
@@ -100,11 +97,9 @@
                     });
                 }
                 //alert("I am the data" + different_Cities_list[x][y].name + different_Cities_list[x][y].latitude + different_Cities_list[x][y].longitude);
-
                 //alert("I am city" + different_Cities_list[x][y].name);-->
             }
         }
-
     </script>
 </head>
 <body>
@@ -120,4 +115,3 @@ for (var y = 0; y < different_Cities_list[x].length; y++)
 {
 alert("I am the data" + different_Cities_list[x][y].name + different_Cities_list[x][y].latitude + different_Cities_list[x][y].longitude);
 //alert("I am city" + different_Cities_list[x][y].name);-->
-

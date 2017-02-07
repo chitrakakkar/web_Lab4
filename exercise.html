@@ -6,7 +6,7 @@
     <style>
         #map
         {
-            height: 400px;
+            height: 500px;
             width: 500px;
         }
     </style>
@@ -51,27 +51,29 @@
         alert("I am here" + JSON.stringify(different_Cities_list));
         function initMap()
         {
+            //alert("I am inti map");
             var mapDiv = new google.maps.Map(document.getElementById("map"),
                     {
-                            //Set three required options to display the map
-                            //Other options such as preventing scrolling or zooming, are available
-                            center: new google.maps.LatLng(45, -93.26),   // Lat and long to center the map
-                            zoom: 5,                                   // 0 = the whole world, 22 = max zoom in
-                            mapTypeId: google.maps.MapTypeId.ROADMAP,
-                            disableDefaultUI: true    // would disable the default labels
-                            //or SATELLITE, HYBRID or TERRAIN
+                        //Set three required options to display the map
+                        //Other options such as preventing scrolling or zooming, are available
+                        center: new google.maps.LatLng(45, -93.26),   // Lat and long to center the map
+                        zoom: 5,                                   // 0 = the whole world, 22 = max zoom in
+                        mapTypeId: google.maps.MapTypeId.ROADMAP,
+                        disableDefaultUI: true    // would disable the default labels
+                        //or SATELLITE, HYBRID or TERRAIN
                     });
-                var emptyStyles =    //https://dzone.com/articles/google-maps-without-any
-                        [
-                            {
-                                featureType: "all",
-                                elementType: "labels",
-                                stylers: [{visibility: "off"}]
-                            }
-                        ];
-                mapDiv.setOptions({styles: emptyStyles});
-                for (var x = 0; x < different_Cities_list.length; x++)
-                {
+            //alert("I am inti map2");
+            var emptyStyles =    //https://dzone.com/articles/google-maps-without-any
+                    [
+                        {
+                            featureType: "all",
+                            elementType: "labels",
+                            stylers: [{visibility: "off"}]
+                        }
+                    ];
+            mapDiv.setOptions({styles: emptyStyles});
+            for (var x = 0; x < different_Cities_list.length; x++)
+            {
                     for (var y = 0; y < different_Cities_list[x].length; y++)
                     {
                         //And create the map, with the options specified
@@ -84,28 +86,27 @@
                             position: new google.maps.LatLng(different_Cities_list[x][y].latitude, different_Cities_list[x][y].longitude), //Where is the marker?
                             map: mapDiv,                       //What map?
                             draggable: false,               //No moving the marker!
-                            title : "Minneapolis is here"     //Tooltip/rollover text
+                            name: different_Cities_list[x][y].name
                         };
+                        //alert("I am name" + MarkerOptions.name);
                         // Create the marker, with the options above
                         // A new marker with the map option set in the markerOptions,
                         // is automatically added to the map it belongs to.
                         var Marker = new google.maps.Marker(MarkerOptions);
-                        var MPLS_infoWindow = new google.maps.InfoWindow
-                        ({
-                            content:" Minneapolis is right here"
+                        var infoWindow = new google.maps.InfoWindow
+                        ( {
+                            content :MarkerOptions.name
                         });
+
+                        //alert("I am content"+ infoWindow.content);
                         Marker.addListener("click", function ()
                         {
-                            MPLS_infoWindow.open(mapDiv, Marker);
-                            alert("Wrong Choice, Its Minneapolis !! Try again ")
+                            infoWindow.open(mapDiv, Marker);
+                            alert("")
                         });
-                    }
-                    //alert("I am the data" + different_Cities_list[x][y].name + different_Cities_list[x][y].latitude + different_Cities_list[x][y].longitude);
-
-                    //alert("I am city" + different_Cities_list[x][y].name);-->
                 }
+            }
         }
-
 
     </script>
 </head>
@@ -123,3 +124,20 @@ for (var y = 0; y < different_Cities_list[x].length; y++)
 alert("I am the data" + different_Cities_list[x][y].name + different_Cities_list[x][y].latitude + different_Cities_list[x][y].longitude);
 //alert("I am city" + different_Cities_list[x][y].name);-->
 
+<!--
+/*var MPLS_infoWindow = new google.maps.InfoWindow
+({
+content:" Minneapolis is right here"
+});
+Marker.addListener("click", function ()
+{
+MPLS_infoWindow.open(mapDiv, Marker);
+alert("Wrong Choice, Its Minneapolis !! Try again ")
+});
+}
+//alert("I am the data" + different_Cities_list[x][y].name + different_Cities_list[x][y].latitude + different_Cities_list[x][y].longitude);
+
+//alert("I am city" + different_Cities_list[x][y].name);&ndash;&gt;
+}
+}
+*/-->
