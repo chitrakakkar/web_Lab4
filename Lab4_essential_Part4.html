@@ -16,13 +16,15 @@
 <P>Move the mouse on the canvas</P>
 <canvas id="canvas" height="400" width="400"></canvas>
 <div >
-    <p><button id="clear">Clear</button></p>
+    <p><button id="clear">Clear</button><button id="color">Change Color</button></p>
 </div>
 <script>
+    var color = "red";
     var canvas = document.getElementById("canvas");
     var context = canvas.getContext("2d");
     canvas.addEventListener("mousemove", drawCircle);
     document.getElementById("clear").addEventListener("click", clear_canvas);
+    document.getElementById("color").addEventListener("click", getRandomColor);
     function drawCircle()
     {
         // event is a built-in variable, contains the event that triggered this function
@@ -35,22 +37,23 @@
         context.beginPath();
         context.arc(x+7,y+9,5,0,2*Math.PI);
         context.lineWidth = 1;
-        context.strokeStyle= "#"+((1<<24)*Math.random()|0).toString(16);
+        context.strokeStyle= color;
         context.stroke();
     }
     function clear_canvas()
     {
         context.clearRect(0,0, canvas.width, canvas.height);
     }
-    /*function getRandomColor()
+    function getRandomColor()
     {
         var letters = '0123456789ABCDEF';
-        var color = '#';
+        color = '#';
         for (var i = 0; i < 6; i++ ) {
             color += letters[Math.floor(Math.random() * 16)];
         }
         return color;
-    }*/
+    }
+
 </script>
 </body>
 </html>
