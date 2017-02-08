@@ -19,6 +19,7 @@
         var Score_counter =0;
         //var center =
         var different_Cities_list=[];
+        //var round =0;
         var Cities=  function(name, Lat, Long)
         {
             this.name= name;
@@ -52,86 +53,101 @@
         alert("I am here" + JSON.stringify(different_Cities_list));
         function initMap()
         {
-            //alert("I am inti map");
-            var mapDiv = new google.maps.Map(document.getElementById("map"),
-                    {
-                        //Set three required options to display the map
-                        //Other options such as preventing scrolling or zooming, are available
-                        center: new google.maps.LatLng(45, -93.26),   // Lat and long to center the map
-                        zoom: 5,                                   // 0 = the whole world, 22 = max zoom in
-                        mapTypeId: google.maps.MapTypeId.ROADMAP,
-                        disableDefaultUI: true    // would disable the default labels
-                        //or SATELLITE, HYBRID or TERRAIN
-                    });
-            //alert("I am inti map2");
-            var emptyStyles =    //https://dzone.com/articles/google-maps-without-any
-                    [
-                        {
-                            featureType: "all",
-                            elementType: "labels",
-                            stylers: [{visibility: "off"}]
-                        }
-                    ];
-            mapDiv.setOptions({styles: emptyStyles});
-            for (var x = 0; x < different_Cities_list.length; x++)
+            for (var x = 0; x < different_Cities_list.length;)
             {
-                    for (var y = 0; y < different_Cities_list[x].length; y++)
-                    {
-                        //And create the map, with the options specified
-                        //var map = new google.maps.Map(mapDiv);
-                        //Can add features, points of interest, routes, lines etc. to maps
-                        //Adding a marker to the map
-                        //Like the map, set the options for the marker
-                        var Marker=
-                        {
-                            position: new google.maps.LatLng(different_Cities_list[x][y].latitude, different_Cities_list[x][y].longitude), //Where is the marker?
-                            map: mapDiv,                       //What map?
-                            draggable: false,               //No moving the marker!
-                            name: different_Cities_list[x][y].name
 
-                        };
-                        //alert("I am name" + MarkerOptions.name);
-                        // Create the marker, with the options above
-                        // A new marker with the map option set in the markerOptions,
-                        // is automatically added to the map it belongs to.
-                        var Marker_x = new google.maps.Marker(Marker);
-                      get_marker_info(Marker_x, Marker.name)
+                var cities = different_Cities_list[x];
+                alert("I  am " + JSON.stringify(cities));
+                setup_map(cities);
+                alert("I am done");
+                x++;
+            }
+        }
+        function setup_map(city)
+        {
+            var mapDiv = new google.maps.Map(document.getElementById("map"),
+                        {
+                            //Set three required options to display the map
+                            //Other options such as preventing scrolling or zooming, are available
+                            center: new google.maps.LatLng(45, -93.26),   // Lat and long to center the map
+                            zoom: 7,                                   // 0 = the whole world, 22 = max zoom in
+                            mapTypeId: google.maps.MapTypeId.ROADMAP,
+                            disableDefaultUI: true    // would disable the default labels
+                            //or SATELLITE, HYBRID or TERRAIN
+                        });
+                //alert("I am inti map");
+            for (var c = 0; c < city.length; c++)
+            {
+                var emptyStyles =    //https://dzone.com/articles/google-maps-without-any
+                            [
+                                {
+                                    featureType: "all",
+                                    elementType: "labels",
+                                    stylers: [{visibility: "off"}]
+                                }
+                            ];
+                    mapDiv.setOptions({styles: emptyStyles});
+                    //And create the map, with the options specified
+                    //var map = new google.maps.Map(mapDiv);
+                    //Can add features, points of interest, routes, lines etc. to maps
+                    //Adding a marker to the map
+                    //Like the map, set the options for the marker
+                var Marker =
+                    {
+                        position: new google.maps.LatLng(city[c].latitude, city[c].longitude), //Where is the marker?
+                        map: mapDiv,                       //What map?
+                        draggable: false,               //No moving the marker!
+                        name: city[c].name
+
+                    };
+                    //alert("I am inti map2");
+                    //alert("I am name" + MarkerOptions.name);
+                    // Create the marker, with the options above
+                    // A new marker with the map option set in the markerOptions,
+                    // is automatically added to the map it belongs to.
+                    var Marker_x = new google.maps.Marker(Marker);
+                    get_marker_info(Marker_x, Marker.name)
+
                 }
             }
-        }
-        function get_marker_info(marker, answer)
-        {
-            var info_window = new google.maps.InfoWindow({
-                content: "This is " + answer
-            });
+            function get_marker_info(marker, answer)
+            {
+                var info_window = new google.maps.InfoWindow
+                ({
+                    content: "This is " + answer
+                });
 
-            marker.addListener('click', function()
-            {
-                info_window.open(marker.get('map'), marker);
-                check_right_answer(info_window.content)
-            });
-        }
-        function check_right_answer(clicked_choice)
-        {
-            alert("I am clicked-choice" + clicked_choice);
-            alert("Right-answer"+ right_answers[0]);
-            if(clicked_choice.toString() == right_answers[0].toString())
-            {
-                alert("I am the right answer " + right_answers);
-                alert("Hurray !! you guessed it right\n"+ "I am " + clicked_choice);
-                Score_counter++;
+                marker.addListener('click', function () {
+                    info_window.open(marker.get('map'), marker);
+                    check_right_answer(info_window.content)
+                });
             }
-            else
+
+            function check_right_answer(clicked_choice)
             {
-                alert("Sorry !! wrong choice " + "I am" + clicked_choice )
+                alert("I am clicked-choice" + clicked_choice);
+                alert("Right-answer " + right_answers);
+                if (clicked_choice in right_answers) {
+                    alert("Hurray !! you guessed it right\n" + "I am " + clicked_choice);
+                    Score_counter++;
+                }
+                else {
+                    alert("Sorry !! wrong choice " + "I am" + clicked_choice);
+                }
             }
-        }
+
+
+        //document.getElementById("question").innerHTML="can you guess which marker is for ";
+        //document.getElementById("score").innerText = "Total score =" + Score_counter;
+
+        //document.getElementById("next").addEventListener("click", initMap);
     </script>
 </head>
 <body>
 <h1 id="question"></h1>
 <h2 id="score"></h2>
 <div id="map"></div>
+<!--<p><button id="next">Next level</button></p>-->
 
 </body>
 </html>
