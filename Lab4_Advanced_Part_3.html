@@ -6,7 +6,7 @@
     <style>
         #map
         {
-            height: 400px;
+            height: 500px;
             width: 500px;
         }
     </style>
@@ -16,7 +16,7 @@
 &callback=initMap">
     </script>
     <script>
-        var count =0;
+        var Score_counter =0;
         //var center =
         var different_Cities_list=[];
         var Cities=  function(name, Lat, Long)
@@ -25,30 +25,34 @@
             this.latitude = Lat;
             this.longitude = Long;
         };
+
         //1st list of MidWest cities
-        var Middle_West_cities = [];
-        var Minneapolis= new  Cities("Minneapolis", 45, -93.26);
+        var Middle_West_cities = []; // [0] is the right answer
+        var Minneapolis= new  Cities("Minneapolis", 45, -93.26); // [0] is the right answer
         var Milwaukee = new Cities("Milwaukee",43.03, -87.90);
         var Madison = new Cities("Madison", 43.07, -89.40);
         Middle_West_cities.push(Minneapolis, Milwaukee, Madison);
+
         // 2nd List  of South_west cities
         var South_west_cities =[];
-        var Tucson = new Cities("Tucson", 32.22, -110.92);
+        var Tucson = new Cities("Tucson", 32.22, -110.92); // [0] is the right answer
         var Phoenix = new Cities("Phoenix", 33.44, -112.07);
         var Flagstaff = new Cities("Flagstaff",35.19, -111.65);
         South_west_cities.push(Tucson, Phoenix, Flagstaff);
+
         // 3rd List of central Cities
         var Central_cities = [];
-        var Denver = new Cities("Denver", 39.73, -104.99);
+        var Denver = new Cities("Denver", 39.73, -104.99); // [0] is the right answer
         var ColoradoSpring = new Cities("Colorado-Springs", 38.84, -104.80);
         var FortCollins = new Cities("Fort-collins", 40.58, -105.08);
         Central_cities.push(Denver, ColoradoSpring, FortCollins);
         // adding all three city list to the final list
         different_Cities_list.push(Middle_West_cities, South_west_cities, Central_cities);
+        var right_answers=["Madison", "Phoenix", "Denver"];
         alert("I am here" + JSON.stringify(different_Cities_list));
         function initMap()
         {
-            //The mapDiv is the HTML element that will hold the map
+            alert("I am inti map");
             var mapDiv = new google.maps.Map(document.getElementById("map"),
                     {
                         //Set three required options to display the map
@@ -59,6 +63,7 @@
                         disableDefaultUI: true    // would disable the default labels
                         //or SATELLITE, HYBRID or TERRAIN
                     });
+            alert("I am inti map2");
             var emptyStyles =    //https://dzone.com/articles/google-maps-without-any
                     [
                         {
@@ -77,27 +82,48 @@
                     //Can add features, points of interest, routes, lines etc. to maps
                     //Adding a marker to the map
                     //Like the map, set the options for the marker
-                    var mplsMarkerOptions = {
+                    var Marker=
+                    {
                         position: new google.maps.LatLng(different_Cities_list[x][y].latitude, different_Cities_list[x][y].longitude), //Where is the marker?
                         map: mapDiv,                       //What map?
                         draggable: false,               //No moving the marker!
-                        title: "Minneapolis is here"    //Tooltip/rollover text
+                        name: different_Cities_list[x][y].name
+
                     };
+                    //alert("I am name" + MarkerOptions.name);
                     // Create the marker, with the options above
                     // A new marker with the map option set in the markerOptions,
                     // is automatically added to the map it belongs to.
-                    var mplsMarker = new google.maps.Marker(mplsMarkerOptions);
-                    var MPLS_infoWindow = new google.maps.InfoWindow({
-                        content: "Minneapolis is right here"
-                    });
-                    mplsMarker.addListener("click", function ()
-                    {
-                        MPLS_infoWindow.open(mapDiv, mplsMarker);
-                        alert("Wrong Choice-This is Minneapolis !! Try again ")
-                    });
+                    var Marker_x = new google.maps.Marker(Marker);
+                    get_marker_info(Marker_x, Marker.name)
                 }
-                //alert("I am the data" + different_Cities_list[x][y].name + different_Cities_list[x][y].latitude + different_Cities_list[x][y].longitude);
-                //alert("I am city" + different_Cities_list[x][y].name);-->
+            }
+        }
+        function get_marker_info(marker, answer)
+        {
+            var info_window = new google.maps.InfoWindow({
+                content: "This is " + answer
+            });
+
+            marker.addListener('click', function()
+            {
+                info_window.open(marker.get('map'), marker);
+                check_right_answer(info_window.content)
+            });
+        }
+        function check_right_answer(clicked_choice)
+        {
+            alert("I am clicked-choice" + clicked_choice);
+            alert("Right-answer"+ right_answers[0]);
+            if(clicked_choice.toString() == right_answers[0].toString())
+            {
+                alert("I am the right answer " + right_answers);
+                alert("Hurray !! you guessed it right\n"+ "I am " + clicked_choice);
+                Score_counter++;
+            }
+            else
+            {
+                alert("Sorry !! wrong choice " + "I am" + clicked_choice )
             }
         }
     </script>
@@ -109,9 +135,3 @@
 
 </body>
 </html>
-<!--for (var x = 0; x < different_Cities_list.length; x++)
-{
-for (var y = 0; y < different_Cities_list[x].length; y++)
-{
-alert("I am the data" + different_Cities_list[x][y].name + different_Cities_list[x][y].latitude + different_Cities_list[x][y].longitude);
-//alert("I am city" + different_Cities_list[x][y].name);-->
