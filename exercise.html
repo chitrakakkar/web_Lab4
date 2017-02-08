@@ -52,7 +52,7 @@
         alert("I am here" + JSON.stringify(different_Cities_list));
         function initMap()
         {
-            alert("I am inti map");
+            //alert("I am inti map");
             var mapDiv = new google.maps.Map(document.getElementById("map"),
                     {
                         //Set three required options to display the map
@@ -63,7 +63,7 @@
                         disableDefaultUI: true    // would disable the default labels
                         //or SATELLITE, HYBRID or TERRAIN
                     });
-            alert("I am inti map2");
+            //alert("I am inti map2");
             var emptyStyles =    //https://dzone.com/articles/google-maps-without-any
                     [
                         {
@@ -111,21 +111,20 @@
                 check_right_answer(info_window.content)
             });
         }
-
         function check_right_answer(clicked_choice)
         {
             alert("I am clicked-choice" + clicked_choice);
-            if(right_answers.indexOf(clicked_choice)>=0)
+            alert("Right-answer"+ right_answers[0]);
+            if(clicked_choice.toString() == right_answers[0].toString())
             {
                 alert("I am the right answer " + right_answers);
-                alert("Hurray !! you guessed it right\n"+ "I am " + clicked_choice)
+                alert("Hurray !! you guessed it right\n"+ "I am " + clicked_choice);
                 Score_counter++;
             }
             else
             {
                 alert("Sorry !! wrong choice " + "I am" + clicked_choice )
             }
-
         }
     </script>
 </head>
@@ -136,27 +135,3 @@
 
 </body>
 </html>
-<!--for (var x = 0; x < different_Cities_list.length; x++)
-{
-for (var y = 0; y < different_Cities_list[x].length; y++)
-{
-alert("I am the data" + different_Cities_list[x][y].name + different_Cities_list[x][y].latitude + different_Cities_list[x][y].longitude);
-//alert("I am city" + different_Cities_list[x][y].name);-->
-
-<!--
-/*var MPLS_infoWindow = new google.maps.InfoWindow
-({
-content:" Minneapolis is right here"
-});
-Marker.addListener("click", function ()
-{
-MPLS_infoWindow.open(mapDiv, Marker);
-alert("Wrong Choice, Its Minneapolis !! Try again ")
-});
-}
-//alert("I am the data" + different_Cities_list[x][y].name + different_Cities_list[x][y].latitude + different_Cities_list[x][y].longitude);
-
-//alert("I am city" + different_Cities_list[x][y].name);&ndash;&gt;
-}
-}
-*/-->
