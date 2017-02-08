@@ -16,7 +16,7 @@
 &callback=initMap">
     </script>
     <script>
-        var count =0;
+        var Score_counter =0;
         //var center =
         var different_Cities_list=[];
         var Cities=  function(name, Lat, Long)
@@ -102,15 +102,31 @@
         function get_marker_info(marker, answer)
         {
             var info_window = new google.maps.InfoWindow({
-                content: answer
+                content: "This is " + answer
             });
 
             marker.addListener('click', function()
             {
                 info_window.open(marker.get('map'), marker);
+                check_right_answer(info_window.content)
             });
         }
 
+        function check_right_answer(clicked_choice)
+        {
+            alert("I am clicked-choice" + clicked_choice);
+            if(right_answers.indexOf(clicked_choice)>=0)
+            {
+                alert("I am the right answer " + right_answers);
+                alert("Hurray !! you guessed it right\n"+ "I am " + clicked_choice)
+                Score_counter++;
+            }
+            else
+            {
+                alert("Sorry !! wrong choice " + "I am" + clicked_choice )
+            }
+
+        }
     </script>
 </head>
 <body>
