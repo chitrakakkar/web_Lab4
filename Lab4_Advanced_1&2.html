@@ -30,8 +30,7 @@
                 center : new google.maps.LatLng(45, -93.26),   // Lat and long to center the map
                 zoom : 5,                                   // 0 = the whole world, 22 = max zoom in
                 mapTypeId : google.maps.MapTypeId.ROADMAP,
-                disableDefaultUI: true    // would disable the default labels
-                //or SATELLITE, HYBRID or TERRAIN
+                disableDefaultUI: true    // would disable the default labels or SATELLITE, HYBRID or TERRAIN
             });
             var emptyStyles =    //https://dzone.com/articles/google-maps-without-any
                     [
@@ -41,12 +40,9 @@
                     stylers: [ { visibility: "off" } ]
                 }
             ];
-            mapDiv.setOptions({styles: emptyStyles});
-            //And create the map, with the options specified
-            //var map = new google.maps.Map(mapDiv);
-            //Can add features, points of interest, routes, lines etc. to maps
+            mapDiv.setOptions({styles: emptyStyles}); //And create the map, with the options specified
             //Adding a marker to the map
-            //Like the map, set the options for the marker
+            //Like the map, set the options for Minneapolis marker
             var mplsMarkerOptions = {
                 position : new google.maps.LatLng(44.97, -93.26), //Where is the marker?
                 map : mapDiv,                       //What map?
@@ -57,6 +53,7 @@
             // A new marker with the map option set in the markerOptions,
             // is automatically added to the map it belongs to.
             var mplsMarker = new google.maps.Marker(mplsMarkerOptions);
+            //Like the map, set the options for Milwaukee marker
             var MilwaukeeMarkerOptions = {
                 position : new google.maps.LatLng(43.03, -87.90), //Where is the marker?
                 map : mapDiv,                       //What map?
@@ -68,15 +65,13 @@
             // is automatically added to the map it belongs to.
             var MilwaukeeMarker = new google.maps.Marker(MilwaukeeMarkerOptions);
             // Create an info window
-
+            //Like the map, set the options for Madison marker
             var MadisonMarkerOptions=
             {
                 position : new google.maps.LatLng(43.07, -89.40), //Where is the marker?
                 map : mapDiv,                       //What map?
                 draggable : false,               //No moving the marker!
                 title : "Madison is here"
-
-
 
             };
             var MadisonMarker = new google.maps.Marker(MadisonMarkerOptions);
@@ -89,17 +84,19 @@
             var Madison_infoWindow = new google.maps.InfoWindow ( {
                 content : "Madison is right here"
             });
-            // And add it to our Minneapolis marker
+            // And add listener to our Minneapolis marker
             mplsMarker.addListener("click", function()
             {
                 MPLS_infoWindow.open(mapDiv, mplsMarker);
                 alert("Wrong Choice-This is Minneapolis !! Try again ")
             });
+            //And add listener to our Milwaukee marker
             MilwaukeeMarker.addListener("click", function ()
             {
                 Milwaukee_infoWindow.open(mapDiv,MilwaukeeMarker);
                 alert("Wrong Choice-This is Milwaukee !! Try Again ")
             });
+            //And add listener to our Madison marker
             MadisonMarker.addListener("click", function ()
             {
                 Madison_infoWindow.open(mapDiv, MadisonMarker);

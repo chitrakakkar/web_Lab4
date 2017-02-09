@@ -4,16 +4,25 @@
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
+<!--no CSS page for this !! nothing much to do-->
 <body style="background-color: bisque">
-<canvas id="canvas" height="850" width="1300"></canvas>
+<div>
+<canvas id="canvas" height="650" width="1250" style="border: 1px black solid"></canvas>
 <img id = "kittens" src="Images/persian-kittens.jpg" style="display: none">
+</div>
+<div id="buttons">
+<p><button id="rectangle" style="height: 50px;width: 400px">Draw Rectangle</button>
+    <button id="Circle" style="height: 50px;width: 400px">Draw Circle</button>
+    <button id="Lines" style="height: 50px;width: 400px">Draw Lines</button></p>
+</div>
 <script>
     var color_list= ["red", "yellow", "green", "blue", "orange", "pink","Aqua","BlueViolet"];
     var canvas = document.getElementById("canvas");
     var c = canvas.getContext("2d");
-    window.onload=draw_rectangle();
-    window.onload = draw_circles(c);
-    window.onload=draw_Lines(c);
+    // event listener for buttons
+    document.getElementById("rectangle").addEventListener("click", draw_rectangle);
+    document.getElementById("Circle").addEventListener("click", draw_circles);
+    document.getElementById("Lines").addEventListener("click", draw_Lines);
     function draw_rectangle()
     {
         var img = document.getElementById("kittens");
@@ -27,10 +36,11 @@
             context.lineWidth = 4;
             context.strokeStyle = color;
             context.stroke();
-            for (var i = 0; i < NumberOfRectangle - 1; i++) {
-                X = X + 5;
+            for (var i = 0; i < NumberOfRectangle - 1; i++) // loop to draw 6 rectangles
+            {
+                X = X + 5;  // increases the position by 5
                 Y = Y + 5;
-                width = width - 10;
+                width = width - 10; // decreases the size by 10
                 height = height - 10;
                 context.beginPath();
                 context.rect(X, Y, width, height);
@@ -46,21 +56,21 @@
             context.fillRect(490, 25,270, 2);
 
         }
-
     }
-    function draw_circles(context)
+    function draw_circles()
     {
-
+        var context = c;
         var X= 70;
-        var Y = 400;
+        var Y = 300;
         context.beginPath();
         context.arc(X, Y,50,0,2*Math.PI);
         context.lineWidth = 12;
         context.strokeStyle = 'yellow';
         context.stroke();
-        for (var j=0;j<3;j++)
+        for (var j=0;j<3;j++) // 3 sets of 8 circles.
         {
-            for (var i = 0; i < 8; i++) {
+            for (var i = 0; i < 8; i++)  // draws sets of 8 circles
+            {
                 context.beginPath();
                 context.arc(X, Y, 50, 0, 2 * Math.PI);
                 context.lineWidth = 15;
@@ -71,15 +81,16 @@
             }
         }
     }
-    function draw_Lines(context)
+    function draw_Lines()
     {
+        var context = c;
         context.lineWidth = 3;
         var x= 0;
-        for(var c=0;c<8;c++)
+        for(var j=0;j<8;j++) // 8 sets of 8 lines
         {
-            for(var l=1;l<8;l++)
+            for(var l=1;l<8;l++) // 8 sets of lines
             {
-                for (var y = 600; y < 720; y += 10)
+                for (var y = 500; y < 600; y += 10)
                 {
                     context.beginPath();
                     context.strokeStyle = color_list[l];
@@ -92,5 +103,6 @@
         }
     }
 </script>
+
 </body>
 </html>

@@ -32,15 +32,14 @@ Squirrel.prototype.jump = function()
 
 var fluffy = new Squirrel("Fluffy");
 
-//Call some squirrel methods for fluffy
-
+// an object instance calling all the methods.
 fluffy.sayHello();
 fluffy.faveFood();
 fluffy.addNutsToStore(10);
 console.log("fluffy now has " + fluffy.nuts + " nuts in storage.");
 console.log("\n");
 
-
+// an object instance calling all the methods.
 var squeaky = new Squirrel("Squeaky");
 
 squeaky.sayHello();
@@ -51,7 +50,7 @@ console.log("\n");
 
 
 
-//Can you call addNutsToStore for this Squirrel?
+// an object instance calling all the methods.
 
 var Mighty = new  Squirrel("Mighty");
 Mighty.sayHello();
@@ -60,29 +59,23 @@ console.log("Mighty now has " + Mighty.nuts + " nuts in storage.");
 console.log("\n");
 
 
+
+// an object instance calling all the methods.
 var Jacky = new  Squirrel("Jacky");
 Jacky.sayHello();
 Jacky.addNutsToStore(28);
 console.log("Jacky now has " + Jacky.nuts + " nuts in storage.");
 console.log("\n");
-//Adding properties to one Squirrel only
-//squeaky.tree = "Oak Tree";
 
-////console.log("Squeaky's tree is : "+ squeaky.tree);   // "Oak Tree"
-//Fluffy doesn't have a tree
-//console.log("Fluffy's tree is : "+ fluffy.tree);   // "undefined"
-
-//Add a jump method only for fluffy
-
+// some better layout
 console.log("Here is the list of all the squirrels :-");
 console.log("----------------------------------------");
 console.log("\t");
-//fluffy.jump();   //This works
 
-//squeaky.jump();  //Calling this results in an error - squeaky doesn't have a jump method*/
-
+//list of squirrels
 var List_of_squirrels = ['Fluffy', 'squeaky', 'Mighty', "Jacky"];
 
+//loop to iterate over all the squirrels
 for(var i=0;i<List_of_squirrels.length;i++)
 {
     var new_Squirrel= new Squirrel(List_of_squirrels[i]);

@@ -22,7 +22,7 @@
 </div>
 
 <script>
-    //taken idea from :-http://stackoverflow.com/questions/13271433/making-a-circle-that-moves
+    // event listener for circle to make and move.
     document.getElementById("drawCircle").addEventListener("click", makeCircle);
     function makeCircle()
     {
@@ -30,9 +30,9 @@
         var Y = 100;
         var canvas = document.getElementById("canvas");
         var context = canvas.getContext("2d");
-        setInterval(drawCircle, 100);
+        setInterval(drawCircle, 100); // draws a circle every mSec(millisecond)
         function drawCircle()
-        {       context.clearRect(0,0,canvas.width,canvas.height);
+        {       context.clearRect(0,0,canvas.width,canvas.height); // keeps clearing the drawn circle
                 context.beginPath();
                 context.arc(X, Y, 40, 0, 2 * Math.PI);
                 context.strokeStyle = "green";
