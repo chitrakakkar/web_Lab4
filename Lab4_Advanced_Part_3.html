@@ -147,7 +147,6 @@
             marker.addListener('click', function ()
             {
                 info_window.open(marker.get('map'), marker);
-                alert(info_window.content);
                 check_right_answer(city_name,right_answer);
             });
         }
@@ -168,6 +167,7 @@
             setup_map(total_rounds[round_counter])
 
         }
+        alert("I am the final Score " + Score_counter)
 
     </script>
 
