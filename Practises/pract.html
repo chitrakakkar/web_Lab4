@@ -84,17 +84,18 @@
         {
             setup_map(total_rounds[0]);
         }
-
         var Score_counter =0;
         var total_rounds= [round1, round2, round3];
         var round_counter = 0;
+        var Answer = ["Madison", "Phoenix", "Denver"];
 
       function setup_map(map_data)
         {
 
-            document.getElementById("question").innerHTML="can you guess where is "+ map_data.cities.name;
+
+            document.getElementById("question").innerHTML="can you guess where is "+ Answer[round_counter] ;
             document.getElementById("score").innerText = "Total score =" + Score_counter;
-            alert("I am the map data" + JSON.stringify(map_data));
+            //alert("I am the map data" + JSON.stringify(map_data));
             var mapDiv = new google.maps.Map(document.getElementById("map"),
                     {
                         //Set three required options to display the map
@@ -132,8 +133,6 @@
                     name: city.name
 
                 };
-                //alert("I am inti map2");
-                //alert("I am name" + MarkerOptions.name);
                 // Create the marker, with the options above
                 // A new marker with the map option set in the markerOptions,
                 // is automatically added to the map it belongs to.
@@ -141,7 +140,6 @@
                 get_marker_info(Marker_x, city.name, city.isCorrectAnswer)
 
             }
-
 
         }
         function get_marker_info(marker, city_name, right_answer)
@@ -154,7 +152,6 @@
             marker.addListener('click', function ()
             {
                 info_window.open(marker.get('map'), marker);
-                alert(info_window.content);
                 check_right_answer(city_name,right_answer);
             });
         }
@@ -174,7 +171,6 @@
             round_counter++;
             setup_map(total_rounds[round_counter]);
         }
-
 
 
     </script>

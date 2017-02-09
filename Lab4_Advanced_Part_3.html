@@ -44,17 +44,17 @@
                 name:"Tucson",
                 lat: 32.22,
                 Long : -110.92,
-                IsCorrectAnswer:false},
+                isCorrectAnswer:false},
 
                 {name:"Phoenix",
                     lat: 34.44,
                     Long : -112.07,
-                    IsCorrectAnswer:true
+                    isCorrectAnswer:true
                 },
                 {name:"Flagstaff",
                     lat: 35.19,
                     Long : -111.65,
-                    IsCorrectAnswer:false}
+                    isCorrectAnswer:false}
             ]
         };
         var round3=
@@ -64,18 +64,18 @@
                 name:"Denver",
                 lat: 39.73,
                 Long : -104.99,
-                IsCorrectAnswer:true
+                isCorrectAnswer:true
             },
 
                 {name:"ColoradoSring",
                     lat: 38.84,
                     Long : -104.80,
-                    IsCorrectAnswer:false
+                    isCorrectAnswer:false
                 },
                 {name:"FortCollins",
                     lat: 40.58,
                     Long : -105.08,
-                    IsCorrectAnswer:false
+                    isCorrectAnswer:false
                 }
             ]
 
@@ -84,13 +84,18 @@
         {
             setup_map(total_rounds[0]);
         }
-
         var Score_counter =0;
         var total_rounds= [round1, round2, round3];
         var round_counter = 0;
+        var Answer = ["Madison", "Phoenix", "Denver"];
+
         function setup_map(map_data)
         {
-            alert("I am the map data" + JSON.stringify(map_data));
+
+
+            document.getElementById("question").innerHTML="can you guess where is "+ Answer[round_counter] ;
+            document.getElementById("score").innerText = "Total score =" + Score_counter;
+            //alert("I am the map data" + JSON.stringify(map_data));
             var mapDiv = new google.maps.Map(document.getElementById("map"),
                     {
                         //Set three required options to display the map
@@ -110,6 +115,7 @@
                         }
                     ];
             mapDiv.setOptions({styles: emptyStyles});
+
             //alert("I am inti map");
             for (var c = 0; c < map_data.cities.length; c++)
             {
@@ -127,8 +133,6 @@
                     name: city.name
 
                 };
-                //alert("I am inti map2");
-                //alert("I am name" + MarkerOptions.name);
                 // Create the marker, with the options above
                 // A new marker with the map option set in the markerOptions,
                 // is automatically added to the map it belongs to.
@@ -136,6 +140,7 @@
                 get_marker_info(Marker_x, city.name, city.isCorrectAnswer)
 
             }
+
         }
         function get_marker_info(marker, city_name, right_answer)
         {
@@ -156,7 +161,7 @@
             {
                 alert("Hurray !! Right choice " + "I am " + name);
                 Score_counter++;
-                alert("I am the Score " + Score_counter)
+                //alert("I am the Score " + Score_counter);
 
             }
             else
@@ -164,10 +169,9 @@
                 alert("Sorry !! wrong choice " + "I am " + name);
             }
             round_counter++;
-            setup_map(total_rounds[round_counter])
-
+            setup_map(total_rounds[round_counter]);
         }
-        alert("I am the final Score " + Score_counter)
+
 
     </script>
 
