@@ -19,7 +19,7 @@
         var Score_counter =0;
         //var center =
         var different_Cities_list=[];
-        //var round =0;
+        var round =0;
         var Cities=  function(name, Lat, Long)
         {
             this.name= name;
@@ -51,13 +51,15 @@
         different_Cities_list.push(Middle_West_cities, South_west_cities, Central_cities);
         var right_answers=["Madison", "Phoenix", "Denver"];
         alert("I am here" + JSON.stringify(different_Cities_list));
+
+
         function initMap()
         {
             for (var x = 0; x < different_Cities_list.length;)
             {
 
                 var cities = different_Cities_list[x];
-                alert("I  am " + JSON.stringify(cities));
+                //alert("I  am " + JSON.stringify(cities));
                 setup_map(cities);
                 alert("I am done");
                 x++;
@@ -106,36 +108,37 @@
                     // A new marker with the map option set in the markerOptions,
                     // is automatically added to the map it belongs to.
                     var Marker_x = new google.maps.Marker(Marker);
-                    get_marker_info(Marker_x, Marker.name)
+                    //get_marker_info(Marker_x, Marker.name)
 
                 }
             }
-            function get_marker_info(marker, answer)
-            {
-                var info_window = new google.maps.InfoWindow
-                ({
-                    content: "This is " + answer
-                });
-
-                marker.addListener('click', function () {
-                    info_window.open(marker.get('map'), marker);
-                    check_right_answer(info_window.content)
-                });
-            }
-
-            function check_right_answer(clicked_choice)
-            {
-                alert("I am clicked-choice" + clicked_choice);
-                alert("Right-answer " + right_answers);
-                if (clicked_choice in right_answers) {
-                    alert("Hurray !! you guessed it right\n" + "I am " + clicked_choice);
-                    Score_counter++;
-                }
-                else {
-                    alert("Sorry !! wrong choice " + "I am" + clicked_choice);
-                }
-            }
-
+//            function get_marker_info(marker, answer)
+//            {
+//                var info_window = new google.maps.InfoWindow
+//                ({
+//                    content: "This is " + answer
+//                });
+//
+//                marker.addListener('click', function () {
+//                    info_window.open(marker.get('map'), marker);
+//                    alert(info_window.content);
+//                    check_right_answer(info_window.content)
+//                });
+//            }
+//
+//            function check_right_answer(clicked_choice)
+//            {
+//                alert("I am clicked-choice" + clicked_choice);
+//                alert("Right-answer " + right_answers);
+//                if (clicked_choice in right_answers)
+//                {
+//                    alert("Hurray !! you guessed it right\n" + "I am " + clicked_choice);
+//                    Score_counter++;
+//                }
+//                else {
+//                    alert("Sorry !! wrong choice " + "I am" + clicked_choice);
+//                }
+//            }
 
         //document.getElementById("question").innerHTML="can you guess which marker is for ";
         //document.getElementById("score").innerText = "Total score =" + Score_counter;

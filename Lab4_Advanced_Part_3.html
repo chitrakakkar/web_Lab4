@@ -13,57 +13,94 @@
 
     <script async defer
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD3gxvsDMg0UwMj8XR8ujRqDWdkQItQKJM
-&callback=initMap">
-    </script>
+&callback=initMap"></script>
     <script>
-        var Score_counter =0;
-        //var center =
-        var different_Cities_list=[];
-        var Cities=  function(name, Lat, Long)
+        var round1 =
         {
-            this.name= name;
-            this.latitude = Lat;
-            this.longitude = Long;
+            MapCenter:[44,-93],
+            cities:[{
+                name:"Minneapolis",
+                lat:45,
+                Long: -93.26,
+                isCorrectAnswer: false
+            },
+                {name:"Milwaukee",
+                    lat:43.03,
+                    Long: -87.90,
+                    isCorrectAnswer: false
+                },
+                {
+                    name:"Madison",
+                    lat:43.07,
+                    Long: -89.40,
+                    isCorrectAnswer: true
+                }
+            ]
         };
+        var round2 =
+        {
+            MapCenter:[34, -111],
+            cities:[{
+                name:"Tucson",
+                lat: 32.22,
+                Long : -110.92,
+                IsCorrectAnswer:false},
 
-        //1st list of MidWest cities
-        var Middle_West_cities = []; // [0] is the right answer
-        var Minneapolis= new  Cities("Minneapolis", 45, -93.26); // [0] is the right answer
-        var Milwaukee = new Cities("Milwaukee",43.03, -87.90);
-        var Madison = new Cities("Madison", 43.07, -89.40);
-        Middle_West_cities.push(Minneapolis, Milwaukee, Madison);
+                {name:"Phoenix",
+                    lat: 34.44,
+                    Long : -112.07,
+                    IsCorrectAnswer:true
+                },
+                {name:"Flagstaff",
+                    lat: 35.19,
+                    Long : -111.65,
+                    IsCorrectAnswer:false}
+            ]
+        };
+        var round3=
+        {
+            MapCenter:[39, -105],
+            cities:[{
+                name:"Denver",
+                lat: 39.73,
+                Long : -104.99,
+                IsCorrectAnswer:true
+            },
 
-        // 2nd List  of South_west cities
-        var South_west_cities =[];
-        var Tucson = new Cities("Tucson", 32.22, -110.92); // [0] is the right answer
-        var Phoenix = new Cities("Phoenix", 33.44, -112.07);
-        var Flagstaff = new Cities("Flagstaff",35.19, -111.65);
-        South_west_cities.push(Tucson, Phoenix, Flagstaff);
+                {name:"ColoradoSring",
+                    lat: 38.84,
+                    Long : -104.80,
+                    IsCorrectAnswer:false
+                },
+                {name:"FortCollins",
+                    lat: 40.58,
+                    Long : -105.08,
+                    IsCorrectAnswer:false
+                }
+            ]
 
-        // 3rd List of central Cities
-        var Central_cities = [];
-        var Denver = new Cities("Denver", 39.73, -104.99); // [0] is the right answer
-        var ColoradoSpring = new Cities("Colorado-Springs", 38.84, -104.80);
-        var FortCollins = new Cities("Fort-collins", 40.58, -105.08);
-        Central_cities.push(Denver, ColoradoSpring, FortCollins);
-        // adding all three city list to the final list
-        different_Cities_list.push(Middle_West_cities, South_west_cities, Central_cities);
-        var right_answers=["Madison", "Phoenix", "Denver"];
-        alert("I am here" + JSON.stringify(different_Cities_list));
+        };
         function initMap()
         {
-            alert("I am inti map");
+            setup_map(total_rounds[0]);
+        }
+
+        var Score_counter =0;
+        var total_rounds= [round1, round2, round3];
+        var round_counter = 0;
+        function setup_map(map_data)
+        {
+            alert("I am the map data" + JSON.stringify(map_data));
             var mapDiv = new google.maps.Map(document.getElementById("map"),
                     {
                         //Set three required options to display the map
                         //Other options such as preventing scrolling or zooming, are available
-                        center: new google.maps.LatLng(45, -93.26),   // Lat and long to center the map
+                        center: new google.maps.LatLng(map_data.MapCenter[0], map_data.MapCenter[1]),   // Lat and long to center the map
                         zoom: 5,                                   // 0 = the whole world, 22 = max zoom in
                         mapTypeId: google.maps.MapTypeId.ROADMAP,
                         disableDefaultUI: true    // would disable the default labels
                         //or SATELLITE, HYBRID or TERRAIN
                     });
-            alert("I am inti map2");
             var emptyStyles =    //https://dzone.com/articles/google-maps-without-any
                     [
                         {
@@ -73,65 +110,73 @@
                         }
                     ];
             mapDiv.setOptions({styles: emptyStyles});
-            for (var x = 0; x < different_Cities_list.length; x++)
+            //alert("I am inti map");
+            for (var c = 0; c < map_data.cities.length; c++)
             {
-                for (var y = 0; y < different_Cities_list[x].length; y++)
+                var city = map_data.cities[c];
+                //And create the map, with the options specified
+                //var map = new google.maps.Map(mapDiv);
+                //Can add features, points of interest, routes, lines etc. to maps
+                //Adding a marker to the map
+                //Like the map, set the options for the marker
+                var Marker =
                 {
-                    //And create the map, with the options specified
-                    //var map = new google.maps.Map(mapDiv);
-                    //Can add features, points of interest, routes, lines etc. to maps
-                    //Adding a marker to the map
-                    //Like the map, set the options for the marker
-                    var Marker=
-                    {
-                        position: new google.maps.LatLng(different_Cities_list[x][y].latitude, different_Cities_list[x][y].longitude), //Where is the marker?
-                        map: mapDiv,                       //What map?
-                        draggable: false,               //No moving the marker!
-                        name: different_Cities_list[x][y].name
+                    position: new google.maps.LatLng(city.lat,city.Long), //Where is the marker?
+                    map: mapDiv,                       //What map?
+                    draggable: false,               //No moving the marker!
+                    name: city.name
 
-                    };
-                    //alert("I am name" + MarkerOptions.name);
-                    // Create the marker, with the options above
-                    // A new marker with the map option set in the markerOptions,
-                    // is automatically added to the map it belongs to.
-                    var Marker_x = new google.maps.Marker(Marker);
-                    get_marker_info(Marker_x, Marker.name)
-                }
+                };
+                //alert("I am inti map2");
+                //alert("I am name" + MarkerOptions.name);
+                // Create the marker, with the options above
+                // A new marker with the map option set in the markerOptions,
+                // is automatically added to the map it belongs to.
+                var Marker_x= new google.maps.Marker(Marker);
+                get_marker_info(Marker_x, city.name, city.isCorrectAnswer)
+
             }
         }
-        function get_marker_info(marker, answer)
+        function get_marker_info(marker, city_name, right_answer)
         {
-            var info_window = new google.maps.InfoWindow({
-                content: "This is " + answer
+            var info_window = new google.maps.InfoWindow
+            ({
+                content: "This is " + city_name
             });
 
-            marker.addListener('click', function()
+            marker.addListener('click', function ()
             {
                 info_window.open(marker.get('map'), marker);
-                check_right_answer(info_window.content)
+                alert(info_window.content);
+                check_right_answer(city_name,right_answer);
             });
         }
-        function check_right_answer(clicked_choice)
+        function check_right_answer(name, answer)
         {
-            alert("I am clicked-choice" + clicked_choice);
-            alert("Right-answer"+ right_answers[0]);
-            if(clicked_choice.toString() == right_answers[0].toString())
+            if (answer)
             {
-                alert("I am the right answer " + right_answers);
-                alert("Hurray !! you guessed it right\n"+ "I am " + clicked_choice);
+                alert("Hurray !! Right choice " + "I am " + name);
                 Score_counter++;
+                alert("I am the Score " + Score_counter)
+
             }
             else
             {
-                alert("Sorry !! wrong choice " + "I am" + clicked_choice )
+                alert("Sorry !! wrong choice " + "I am " + name);
             }
+            round_counter++;
+            setup_map(total_rounds[round_counter])
+
         }
+
     </script>
+
 </head>
 <body>
 <h1 id="question"></h1>
 <h2 id="score"></h2>
 <div id="map"></div>
+<!--<p><button id="next">Next level</button></p>-->
 
 </body>
 </html>
