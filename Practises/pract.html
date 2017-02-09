@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Google-map-quiz</title>
+    <style>
+        #map
+        {
+            height: 500px;
+            width: 500px;
+        }
+    </style>
+
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD3gxvsDMg0UwMj8XR8ujRqDWdkQItQKJM
+&callback=initMap"></script>
+    <script>
+        var round1 =
+        {
+            MapCenter:[44,-93],
+            cities:[{
+            name:"Minneapolis",
+            lat:45,
+            Long: -93.26,
+            isCorrectAnswer: false
+        },
+            {name:"Milwaukee",
+                   lat:43.03,
+                   Long: -87.90,
+                   isCorrectAnswer: false
+            },
+            {
+                name:"Madison",
+                lat:43.07,
+                Long: -89.40,
+                isCorrectAnswer: true
+        }
+        ]
+        };
+        var round2 =
+        {
+            MapCenter:[34, -111],
+            cities:[{
+                name:"Tucson",
+                lat: 32.22,
+                Long : -110.92,
+                IsCorrectAnswer:false},
+
+                {name:"Phoenix",
+                lat: 34.44,
+                Long : -112.07,
+                IsCorrectAnswer:true
+            },
+                {name:"Flagstaff",
+                    lat: 35.19,
+                    Long : -111.65,
+                    IsCorrectAnswer:false}
+                    ]
+        };
+        var round3=
+        {
+            MapCenter:[39, -105],
+            cities:[{
+                name:"Denver",
+                lat: 39.73,
+                Long : -104.99,
+                IsCorrectAnswer:true
+            },
+
+                {name:"ColoradoSring",
+                    lat: 38.84,
+                    Long : -104.80,
+                    IsCorrectAnswer:false
+                },
+                {name:"FortCollins",
+                    lat: 40.58,
+                    Long : -105.08,
+                    IsCorrectAnswer:false
+                }
+            ]
+
+        };
+    function initMap()
+        {
+            setup_map(total_rounds[0]);
+        }
+
+        var Score_counter =0;
+        var total_rounds= [round1, round2, round3];
+        var round_counter = 0;
+      function setup_map(map_data)
+        {
+            alert("I am the map data" + JSON.stringify(map_data));
+            var mapDiv = new google.maps.Map(document.getElementById("map"),
+                    {
+                        //Set three required options to display the map
+                        //Other options such as preventing scrolling or zooming, are available
+                        center: new google.maps.LatLng(map_data.MapCenter[0], map_data.MapCenter[1]),   // Lat and long to center the map
+                        zoom: 5,                                   // 0 = the whole world, 22 = max zoom in
+                        mapTypeId: google.maps.MapTypeId.ROADMAP,
+                        disableDefaultUI: true    // would disable the default labels
+                        //or SATELLITE, HYBRID or TERRAIN
+                    });
+            var emptyStyles =    //https://dzone.com/articles/google-maps-without-any
+                    [
+                        {
+                            featureType: "all",
+                            elementType: "labels",
+                            stylers: [{visibility: "off"}]
+                        }
+                    ];
+            mapDiv.setOptions({styles: emptyStyles});
+            //alert("I am inti map");
+            for (var c = 0; c < map_data.cities.length; c++)
+            {
+                var city = map_data.cities[c];
+                //And create the map, with the options specified
+                //var map = new google.maps.Map(mapDiv);
+                //Can add features, points of interest, routes, lines etc. to maps
+                //Adding a marker to the map
+                //Like the map, set the options for the marker
+                var Marker =
+                {
+                    position: new google.maps.LatLng(city.lat,city.Long), //Where is the marker?
+                    map: mapDiv,                       //What map?
+                    draggable: false,               //No moving the marker!
+                    name: city.name
+
+                };
+                //alert("I am inti map2");
+                //alert("I am name" + MarkerOptions.name);
+                // Create the marker, with the options above
+                // A new marker with the map option set in the markerOptions,
+                // is automatically added to the map it belongs to.
+                var Marker_x= new google.maps.Marker(Marker);
+                get_marker_info(Marker_x, city.name, city.isCorrectAnswer)
+
+            }
+        }
+        function get_marker_info(marker, city_name, right_answer)
+        {
+            var info_window = new google.maps.InfoWindow
+            ({
+                content: "This is " + city_name
+            });
+
+            marker.addListener('click', function ()
+            {
+                info_window.open(marker.get('map'), marker);
+                alert(info_window.content);
+                check_right_answer(city_name,right_answer);
+            });
+        }
+        function check_right_answer(name, answer)
+        {
+            if (answer)
+            {
+                alert("Hurray !! Right choice " + "I am " + name);
+                Score_counter++;
+                alert("I am the Score " + Score_counter)
+
+            }
+            else
+            {
+                alert("Sorry !! wrong choice " + "I am " + name);
+            }
+            round_counter++;
+            setup_map(total_rounds[round_counter])
+
+        }
+
+    </script>
+
+</head>
+<body>
+<h1 id="question"></h1>
+<h2 id="score"></h2>
+<div id="map"></div>
+<!--<p><button id="next">Next level</button></p>-->
+
+</body>
+</html>
