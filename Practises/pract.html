@@ -169,8 +169,22 @@
                 alert("Sorry !! wrong choice " + "I am " + name);
             }
             round_counter++;
-            setup_map(total_rounds[round_counter]);
+            if (round_counter < total_rounds.length)
+            {
+                setup_map(total_rounds[round_counter]); // set up map for next round
+            }
+             else
+
+                 {
+                         gameover();   // Optional - if there was something you wanted to do at the end of the game
+                      }
         }
+       function gameover()
+            {
+                      // if there is something you want to do at the end of the game
+                            document.getElementById("score").innerText = "Final score = " + Score_counter;
+            }
+
 
 
     </script>
