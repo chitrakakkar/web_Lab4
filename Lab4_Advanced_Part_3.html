@@ -15,8 +15,6 @@
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD3gxvsDMg0UwMj8XR8ujRqDWdkQItQKJM
 &callback=initMap"></script>
     <script>
-        // three dataSets for three rounds.
-        // MapCenter for all the 3 cities, a boolean is taken to check the right answer
         var round1 =
         {
             MapCenter:[44,-93],
@@ -69,14 +67,12 @@
                 isCorrectAnswer:true
             },
 
-                {
-                    name:"ColoradoSring",
+                {name:"ColoradoSring",
                     lat: 38.84,
                     Long : -104.80,
                     isCorrectAnswer:false
                 },
-                {
-                    name:"FortCollins",
+                {name:"FortCollins",
                     lat: 40.58,
                     Long : -105.08,
                     isCorrectAnswer:false
@@ -84,24 +80,22 @@
             ]
 
         };
-        // init map calls set up for each round;starts with round 1.
         function initMap()
         {
             setup_map(total_rounds[0]);
         }
-        var Score_counter =0; // varible to calculate a score.
-        var total_rounds= [round1, round2, round3]; // total round list
+        var Score_counter =0;
+        var total_rounds= [round1, round2, round3];
         var round_counter = 0;
-        //  list for caption;there would be a better way to do it.
         var Answer = ["Madison", "Phoenix", "Denver"];
 
         function setup_map(map_data)
         {
-            // caption display
-            document.getElementById("question").innerHTML="can you guess where is "+ Answer[round_counter] + "?";
-            //score display
+
+
+            document.getElementById("question").innerHTML="can you guess where is "+ Answer[round_counter] ;
             document.getElementById("score").innerText = "Total score =" + Score_counter;
-            //map set up with center, zoom and mapType
+            //alert("I am the map data" + JSON.stringify(map_data));
             var mapDiv = new google.maps.Map(document.getElementById("map"),
                     {
                         //Set three required options to display the map
@@ -122,7 +116,7 @@
                     ];
             mapDiv.setOptions({styles: emptyStyles});
 
-            //loop to iterate over 3 cities in map data to draw the marker
+            //alert("I am inti map");
             for (var c = 0; c < map_data.cities.length; c++)
             {
                 var city = map_data.cities[c];
@@ -143,13 +137,11 @@
                 // A new marker with the map option set in the markerOptions,
                 // is automatically added to the map it belongs to.
                 var Marker_x= new google.maps.Marker(Marker);
-                //Another function to get marker info and check if right answer is clicked
                 get_marker_info(Marker_x, city.name, city.isCorrectAnswer)
 
             }
 
         }
-        // adds listener to the markers and call another function for right answers
         function get_marker_info(marker, city_name, right_answer)
         {
             var info_window = new google.maps.InfoWindow
@@ -163,7 +155,6 @@
                 check_right_answer(city_name,right_answer);
             });
         }
-        // a boolean value for cities checks the correct attempt and increases the score
         function check_right_answer(name, answer)
         {
             if (answer)
@@ -177,9 +168,25 @@
             {
                 alert("Sorry !! wrong choice " + "I am " + name);
             }
-            round_counter++; // first round over, move to the next round.
-            setup_map(total_rounds[round_counter]); // set up map for next round
+            round_counter++;
+            if (round_counter < total_rounds.length)
+            {
+                setup_map(total_rounds[round_counter]); // set up map for next round
+            }
+            else
+
+            {
+                gameover();   // Optional - if there was something you wanted to do at the end of the game
+            }
         }
+        function gameover()
+        {
+            // if there is something you want to do at the end of the game
+            document.getElementById("score").innerText = "Final score = " + Score_counter;
+        }
+
+
+
     </script>
 
 </head>
